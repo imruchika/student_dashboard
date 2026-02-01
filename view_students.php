@@ -26,6 +26,7 @@ include("db/config.php");
 $query = "
 SELECT 
     s.student_id,
+    s.prn,
     s.name,
     s.class,
     s.section,
@@ -43,7 +44,7 @@ SELECT
    
 FROM students s
 LEFT JOIN marks m ON s.student_id = m.student_id
-GROUP BY s.student_id, s.name, s.class, s.section, s.year, s.semester, s.attendance_percentage, s.extracurricular, s.added_by
+GROUP BY s.student_id, s.prn,  s.name, s.class, s.section, s.year, s.semester, s.attendance_percentage, s.extracurricular, s.added_by
 ORDER BY s.student_id DESC
 ";
 
@@ -445,7 +446,7 @@ body{
         <div class="sort-section">
             <label style="font-weight: bold;">Sort By</label>
             <select id="sortBy">
-                <option value="id">ID</option>
+                <option value="prn">PRN</option>
                 <option value="name">Name</option>
                 <option value="class">Class</option>
                 <option value="marks">Total Marks</option>
@@ -465,7 +466,7 @@ body{
         <table id="studentTable">
             <thead>
           <tr>
-        <th>ID</th>
+        <th>PRN</th>
         <th>Name</th>
         <th>Class</th>
         <th>Section</th>
@@ -492,7 +493,7 @@ body{
                    
             ?>
                  <tr>
-    <td><strong><?php echo $row['student_id']; ?></strong></td>
+    <td><strong><?php echo $row['prn']; ?></strong></td>
     <td><strong><?php echo htmlspecialchars($row['name']); ?></strong></td>
     <td><?php echo htmlspecialchars($row['class']); ?></td>
     <td><?php echo htmlspecialchars($row['section']); ?></td>
