@@ -1,14 +1,17 @@
 <?php
 session_start();
 
-if (
-    empty($_SESSION['user_id']) ||
-    empty($_SESSION['role']) ||
-    $_SESSION['role'] !== 'teacher'
-) {
-    header("Location: /std_dashboard/page1/index.php");
-    exit();
-}
+// echo ( $_SESSION);
+// // serialize ($_SESSION);
+// json_encode($_SESSION);
+// if (
+//  echo( empty($_SESSION['user_id']) );
+//   echo(  empty($_SESSION['role']) );
+//    echo( $_SESSION['role'] !== 'teacher');
+// ) {
+//     header("Location: /std_dashboard/page1/index.php");
+//     exit();
+// }
 
 include("db/config.php");
 
