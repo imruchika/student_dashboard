@@ -1,0 +1,458 @@
+/* DASHBOARD PAGE CSS STYLING ONLY */
+
+html, body{
+            margin:0;
+            padding:0;
+            width:100%;
+            overflow-x:hidden;
+        }
+       
+        body{
+            margin:0;
+            min-height:100vh;
+           /*  background:radial-gradient(circle at top,#4c6fff,#9333ea 45%,#111827 85%); */
+            background: linear-gradient(to right, #DDD0C8, #bbb4b4);
+              color: #413f3f;
+           
+            /* color:#0f172a; */
+            position:relative;
+        }
+
+ /* ===== DASHBOARD SIDEBAR ===== */
+
+        .menu-btn{
+           position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 28px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 1000;
+            background: rgba(110, 108, 108, 0.2);
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+        .dashboard-main{
+            display:flex;
+            min-height:100vh;
+            width:100%;
+            max-width:none;
+            margin-left: 65px;
+            margin: 10px 60PX;
+        }
+
+        .sidebar {
+                height: 100%; /* 100% Full-height */
+                width: 0; /* 0 width - change this with JavaScript */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Stay on top */
+                top: 0;
+                left: 0;
+               /* background: linear-gradient(to right, #a59c96, #bbb4b4); */
+               background: #504f4f;
+              color: #413f3f;
+                overflow-x: hidden; /* Disable horizontal scroll */
+                padding-top: 60px; /* Place content 60px from the top */
+                transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+        }
+
+
+        .sidebar h2{
+            margin:0 0 14px;
+            font-size:18px;
+            letter-spacing:0.04em;
+        }
+
+        /* The sidebar links */
+        .sidebar a {
+            /* padding: 8px 8px 8px 32px; */
+            padding:  18px 10px;
+            text-decoration: none;
+            font-size: 25px;
+            /* color: #484545; */
+            gap: 10px;
+            display: block;
+            transition: 0.3s;
+            border-radius: 10px solid;
+            margin: 10px;
+            margin-top: 25px;
+            
+    
+
+        }
+
+        .sidebar a:hover {
+             /* background-color:#a59c96 ;
+             color: #2e2e2e;
+            
+          color: #0f172a; */
+           background-color: #DDD0C8;   /* beige */
+  color: #413f3f;              /* text color */
+  transform: translateX(6px);  /* smooth slide */
+
+        }  
+
+       /* Position and style the close button (top right corner) */
+        .sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            color: #a59c96;
+           border-radius: 10px;
+            padding:5px 10px;
+            margin-bottom: 10px;
+        }
+    
+        .links{
+          background: linear-gradient(to right, #a59c96, #bbb4b4);
+           /* color:#413f3f; */
+        color: beige;
+            border-radius: 20px;
+         
+        }
+        .links:hover{
+background-color:#a59c96 ;
+             color: #2e2e2e;
+        }
+
+
+        /* The button used to open the sidebar */
+        .openbtn {
+           /* margin-top: 0px;
+           margin-bottom: 40px; */
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #b5aeae;
+            color: white;
+            padding: 8px ;
+            border: none;
+        }
+
+
+        .openbtn:hover {
+            background-color: #4e4c4c;
+        }
+
+
+        /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+        #main {
+            transition: margin-left .5s; /* If you want a transition effect */
+            margin-left: 12px;
+            padding: 20px;
+        }
+
+
+        /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+        @media screen and (max-height: 450px) {
+            .sidebar {padding-top: 15px;}
+            .sidebar a {font-size: 18px;}
+        }
+
+        .logout-side {
+            margin-top: 30px;
+            width:90%;
+            padding: 15px;
+            margin: 10px;
+            background:linear-gradient(to right,#893c3c, rgb(213, 140, 140));
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .logout-side:hover {
+            opacity: 0.9;
+        }
+
+         .sidebar a.active{
+            /* background:linear-gradient(135deg,#4f46e5,#7c3aed); */
+            background: linear-gradient(to right, #5d534d, #9a8888);
+            color: #413f3f;
+            border-radius: 20px;
+        }
+         .sidebar a.active:hover{ 
+            color: white;
+        } 
+        .closebtn a:hover{
+            color: white;
+        }
+
+        .main{
+            flex:1;
+            padding:20px 22px 26px;
+            position:relative;
+            z-index:1;
+        }
+        .welcome-text{
+            margin:0;
+            /* color:#f9fafb; */
+            color:  #413f3f;
+            font-size:22px;
+        }
+        .dashboard-title{
+            margin:6px 0 18px;
+            /* color:#e5e7eb; */
+            color:  #413f3f;
+            font-size:24px;
+            font-weight:800;
+            letter-spacing:0.04em;
+            text-transform:uppercase;
+        }
+
+        .layout-grid{
+            display:grid;
+            grid-template-columns: minmax(0,2.2fr) minmax(260px,1.3fr);
+            gap:18px;
+            align-items:flex-start;
+        }
+
+        .kpi-row{
+            display:grid;
+            grid-template-columns:repeat(3, minmax(0,1fr));
+            gap:10px;
+            margin-bottom:12px;
+        }
+
+        .kpi-card{
+            position:relative;
+            background:linear-gradient(135deg,#ffffff,#eff6ff);
+            border-radius:12px;
+            padding:10px 12px;
+            box-shadow:0 8px 20px rgba(15,23,42,0.25);
+            overflow:hidden;
+        }
+
+        .kpi-card::after{
+            content:"";
+            position:absolute;
+            right:-40px;
+            top:-40px;
+            width:120px;
+            height:120px;
+             background: linear-gradient(to right, #DDD0C8, #bbb4b4);
+            /* background:radial-gradient(circle,#3a3953 0,#3f4262 40%,transparent 70%); */
+            opacity:0.15;
+        }
+        .kpi-label{
+            font-size:13px;
+            color:  #413f3f;
+            margin-bottom:6px;
+        }
+        .kpi-value{
+            font-size:24px;
+            font-weight:800;
+            /* color:#111827; */
+            color:  #413f3f;
+        }
+        .kpi-sub{
+            font-size:11px;
+            color:#9ca3af;
+            margin-top:2px;
+        }
+
+        .charts-grid{
+            display:grid;
+            grid-template-columns:repeat(2,minmax(0,1fr));
+            gap:16px;
+            align-items:stretch;
+        }
+
+        .chart-card{
+            background:rgba(248,250,252,0.98);
+            border-radius:16px;
+            padding:14px 16px 18px;
+            box-shadow:0 12px 30px rgba(15,23,42,0.35);
+            display:flex;
+            flex-direction:column;
+        }
+
+        .chart-card.full-width{
+            grid-column:1 / -1;
+        }
+
+        .chart-card h3{
+            margin:0 0 10px;
+            font-size:15px;
+            color:#111827;
+            display:flex;
+            align-items:center;
+            gap:6px;
+        }
+
+        .chart-card h3 span{
+            font-size:18px;
+        }
+
+        .chart-container{
+            position:relative;
+            width:100%;
+            height:260px;
+            flex:1;
+        }
+
+        .chart-container canvas{
+            width:100% !important;
+            height:100% !important;
+        }
+
+        .right-column{
+            display:flex;
+            flex-direction:column;
+            gap:14px;
+        }
+        .toppers-card,
+        .summary-card{
+            background:rgba(248,250,252,0.98);
+            border-radius:16px;
+            padding:14px 16px 12px;
+            box-shadow:0 12px 30px rgba(15,23,42,0.35);
+        }
+        .toppers-card h3,
+        .summary-card h3{
+            margin:0 0 8px;
+            font-size:15px;
+            color:#111827;
+            display:flex;
+            align-items:center;
+            gap:6px;
+        }
+        .toppers-list{
+            display:grid;
+            grid-template-columns:1fr;
+            gap:8px;
+        }
+        .topper-item{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:8px 10px;
+            border-radius:10px;
+            /* background:#eef2ff; */
+             background: linear-gradient(to right, #DDD0C8, #bbb4b4);
+            font-size:13px;
+        }
+        .topper-subject{
+            font-weight:600;
+            /* color:#4f46e5; */
+            color:  #0d0a0a;
+        }
+        .topper-name{
+            color:#111827;
+        }
+        .topper-marks{
+            font-weight:700;
+            color:#16a34a;
+        }
+
+        .subject-summary-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+            gap:8px;
+            margin-top:6px;
+        }
+        .subject-summary-item{
+            padding:8px 10px;
+            border-radius:10px;
+            /* background:#ecfdf5; */
+             background: linear-gradient(to right, #DDD0C8, #bbb4b4);
+            font-size:12px;
+        }
+        .subject-summary-item .subject-name{
+            font-weight:600;
+            color:  #090909;
+            margin-bottom:2px;
+        }
+        .subject-summary-item .subject-pass{
+            color:  #413f3f;
+            font-weight:600;
+        }
+
+        @media(max-width:1024px){
+            .layout-grid{
+                grid-template-columns:1fr;
+            }
+        }
+        @media(max-width:768px){
+            body{
+                padding-top:44px;
+            }
+            .dashboard-main{
+                display:flex;
+                min-height:100vh;
+                width:100%;
+                max-width:none;
+                margin:0;
+                padding:0;
+            }
+          
+            .main{
+                padding:14px;
+            }
+            .menu-btn{
+                display:block;
+            }
+            .sidebar.hide{
+                display:none;
+            }
+
+            .charts-grid{
+                display:grid;
+                grid-template-columns:repeat(2,minmax(0,1fr));
+                gap:12px;
+                align-items:stretch;
+                margin-bottom:12px;
+            }
+            .chart-card{
+                background:rgba(248,250,252,0.98);
+                border-radius:14px;
+                padding:12px 14px 14px;
+                box-shadow:0 10px 24px rgba(15,23,42,0.3);
+                display:flex;
+                flex-direction:column;
+            }
+            .chart-card.full-width{
+                grid-column:1 / -1;
+            }
+            .chart-card h3{
+                margin:0 0 8px;
+                font-size:14px;
+                color:#111827;
+                display:flex;
+                align-items:center;
+                gap:6px;
+            }
+            .chart-card h3 span{
+                font-size:18px;
+            }
+            .chart-container{
+                position:relative;
+                width:100%;
+                height:230px;
+                flex:1;
+            }
+            .chart-container canvas{
+                width:100% !important;
+                height:100% !important;
+            }
+        }
+
+        .page-shape{
+            position:fixed;
+            border-radius:50%;
+            background:rgba(255,255,255,0.04);
+            z-index:0;
+            pointer-events:none;
+        }
+        .page-shape.s1{width:200px;height:200px;top:-60px;left:-60px;}
+        .page-shape.s2{width:160px;height:160px;top:18%;right:-40px;}
+        .page-shape.s3{width:140px;height:140px;bottom:-60px;left:15%;}
+        .page-shape.s4{width:260px;height:260px;bottom:-120px;right:20%;border-radius:28px;}
