@@ -1,6 +1,6 @@
 <?php
 session_start();
 session_destroy();
-header("Location: page1/index.php");
+header("Location: auth/index.php");
 exit;
 ?>
