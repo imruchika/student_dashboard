@@ -10,11 +10,9 @@ html, body{
         body{
             margin:0;
             min-height:100vh;
-           /*  background:radial-gradient(circle at top,#4c6fff,#9333ea 45%,#111827 85%); */
-            background: linear-gradient(to right, #DDD0C8, #bbb4b4);
+             background: linear-gradient(to right, #DDD0C8, #bbb4b4);
               color: #413f3f;
            
-            /* color:#0f172a; */
             position:relative;
         }
 
@@ -53,7 +51,6 @@ html, body{
                 z-index: 1; /* Stay on top */
                 top: 0;
                 left: 0;
-               /* background: linear-gradient(to right, #a59c96, #bbb4b4); */
                background: #504f4f;
               color: #413f3f;
                 overflow-x: hidden; /* Disable horizontal scroll */
@@ -70,11 +67,9 @@ html, body{
 
         /* The sidebar links */
         .sidebar a {
-            /* padding: 8px 8px 8px 32px; */
             padding:  18px 10px;
             text-decoration: none;
             font-size: 25px;
-            /* color: #484545; */
             gap: 10px;
             display: block;
             transition: 0.3s;
@@ -82,18 +77,13 @@ html, body{
             margin: 10px;
             margin-top: 25px;
             
-    
-
         }
 
         .sidebar a:hover {
-             /* background-color:#a59c96 ;
-             color: #2e2e2e;
-            
-          color: #0f172a; */
+        
            background-color: #DDD0C8;   /* beige */
-  color: #413f3f;              /* text color */
-  transform: translateX(6px);  /* smooth slide */
+            color: #413f3f;              /* text color */
+            transform: translateX(6px);  /* smooth slide */
 
         }  
 
@@ -111,22 +101,19 @@ html, body{
         }
     
         .links{
-          background: linear-gradient(to right, #a59c96, #bbb4b4);
-           /* color:#413f3f; */
-        color: beige;
+            background: linear-gradient(to right, #a59c96, #bbb4b4);
+            color: beige;
             border-radius: 20px;
          
         }
         .links:hover{
-background-color:#a59c96 ;
+             background-color:#a59c96 ;
              color: #2e2e2e;
         }
 
 
         /* The button used to open the sidebar */
         .openbtn {
-           /* margin-top: 0px;
-           margin-bottom: 40px; */
             font-size: 25px;
             cursor: pointer;
             background-color: #b5aeae;
@@ -134,21 +121,14 @@ background-color:#a59c96 ;
             padding: 8px ;
             border: none;
         }
-
-
-        .openbtn:hover {
+       .openbtn:hover {
             background-color: #4e4c4c;
         }
-
-
-        /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
         #main {
-            transition: margin-left .5s; /* If you want a transition effect */
+            transition: margin-left .5s; /* for transition effect */
             margin-left: 12px;
             padding: 20px;
         }
-
-
         /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
         @media screen and (max-height: 450px) {
             .sidebar {padding-top: 15px;}
@@ -181,7 +161,7 @@ background-color:#a59c96 ;
     }
 
         .std-logout {
-            padding: 15px;
+            padding: 15px 10px 10px 15px;
             width: 10%;
             margin: 10px;
             background:linear-gradient(to right,#893c3c, rgb(213, 140, 140));
@@ -194,9 +174,9 @@ background-color:#a59c96 ;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-right: 50px;
         }         
         .sidebar a.active{
-            /* background:linear-gradient(135deg,#4f46e5,#7c3aed); */
             background: linear-gradient(to right, #5d534d, #9a8888);
             color: #413f3f;
             border-radius: 20px;
@@ -216,13 +196,11 @@ background-color:#a59c96 ;
         }
         .welcome-text{
             margin:0;
-            /* color:#f9fafb; */
             color:  #413f3f;
             font-size:22px;
         }
         .dashboard-title{
-            margin:6px 0 18px;
-            /* color:#e5e7eb; */
+            margin:6px ;
             color:  #413f3f;
             font-size:24px;
             font-weight:800;
@@ -260,8 +238,7 @@ background-color:#a59c96 ;
             top:-40px;
             width:120px;
             height:120px;
-             background: linear-gradient(to right, #DDD0C8, #bbb4b4);
-            /* background:radial-gradient(circle,#3a3953 0,#3f4262 40%,transparent 70%); */
+            background: linear-gradient(to right, #DDD0C8, #bbb4b4);
             opacity:0.15;
         }
         .kpi-label{
@@ -272,7 +249,6 @@ background-color:#a59c96 ;
         .kpi-value{
             font-size:24px;
             font-weight:800;
-            /* color:#111827; */
             color:  #413f3f;
         }
         .kpi-sub{
@@ -358,13 +334,11 @@ background-color:#a59c96 ;
             align-items:center;
             padding:8px 10px;
             border-radius:10px;
-            /* background:#eef2ff; */
              background: linear-gradient(to right, #DDD0C8, #bbb4b4);
             font-size:13px;
         }
         .topper-subject{
             font-weight:600;
-            /* color:#4f46e5; */
             color:  #0d0a0a;
         }
         .topper-name{
@@ -384,7 +358,6 @@ background-color:#a59c96 ;
         .subject-summary-item{
             padding:8px 10px;
             border-radius:10px;
-            /* background:#ecfdf5; */
              background: linear-gradient(to right, #DDD0C8, #bbb4b4);
             font-size:12px;
         }
