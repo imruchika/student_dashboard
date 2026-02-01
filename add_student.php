@@ -1,18 +1,13 @@
 <?php
 session_start();
-
-// echo ( $_SESSION);
-// // serialize ($_SESSION);
-// json_encode($_SESSION);
-// if (
-//  echo( empty($_SESSION['user_id']) );
-//   echo(  empty($_SESSION['role']) );
-//    echo( $_SESSION['role'] !== 'teacher');
-// ) {
-//     header("Location: /std_dashboard/page1/index.php");
-//     exit();
-// }
-
+if (
+  empty($_SESSION['user_id']) ||
+    empty($_SESSION['role']) ||
+    $_SESSION['role'] !== 'teacher'
+) {
+    header("Location: /std_dashboard/page1/index.php");
+    exit();
+}
 include("db/config.php");
 
 //include("db/config.php");
@@ -40,6 +35,7 @@ $subjects_list = [
 ];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
     $name   = mysqli_real_escape_string($conn, trim($_POST['name'] ?? ''));
     $course = mysqli_real_escape_string($conn, trim($_POST['course'] ?? ''));
     $section= mysqli_real_escape_string($conn, trim($_POST['section'] ?? ''));
@@ -58,54 +54,71 @@ $added_by = $_SESSION['username'];
     } elseif ($sem ===0){
         $error = "Please select a valid semester.";
     } else {
-        $q = "INSERT INTO students (name, class, section, year, semester, attendance_percentage, extracurricular,added_by) 
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = mysqli_prepare($conn, $q);
-        mysqli_stmt_bind_param(
-            $stmt,
-            "sssssdss",
-            $name,
-            $course,
-            $section,
-            $year,
-            $sem,
-            $attendance_percentage,
-            $extra,
-            $added_by
+            $role = "student";
+            $prn = date('YmdHis');  
+            $hashedPassword = password_hash("stud123", PASSWORD_DEFAULT);//creting default password for student
+            $stmt = mysqli_prepare(
+            $conn,
+            "INSERT INTO users (username, password, role) VALUES (?, ?, ?)"
         );
+                
+            mysqli_stmt_bind_param($stmt, "sss", $prn, $hashedPassword, $role);
+           mysqli_stmt_execute($stmt);
 
-        if (mysqli_stmt_execute($stmt)) {
-            $student_id = mysqli_insert_id($conn);
+            // get last inserted id
+            $user_id = mysqli_insert_id($conn);
+              
+                $q = "INSERT INTO students ( prn, user_id, name, class, section, year, semester, attendance_percentage, extracurricular,added_by) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                $stmt = mysqli_prepare($conn, $q);
+                mysqli_stmt_bind_param(
+                    $stmt,
+                    "sdsssssdss",
+                    $prn,
+                    $user_id,
+                    $name,
+                    $course,
+                    $section,
+                    $year,
+                    $sem,
+                    $attendance_percentage,
+                    $extra,
+                    $added_by
+                );
 
-            for ($i = 1; $i <= 5; $i++) {
-                $subject = mysqli_real_escape_string($conn, trim($_POST["subject$i"] ?? ''));
-                $marks   = (int)($_POST["marks$i"] ?? 0);
+                if (mysqli_stmt_execute($stmt)) {
+                    $student_id = mysqli_insert_id($conn);
+                    
+                    for ($i = 1; $i <= 5; $i++) {
+                        $subject = mysqli_real_escape_string($conn, trim($_POST["subject$i"] ?? ''));
+                        $marks   = (int)($_POST["marks$i"] ?? 0);
 
-                if ($subject !== '' && $marks >= 0 && $marks <= 100) {
-                    $mq = "INSERT INTO marks (student_id, subject, g3) VALUES (?, ?, ?)";
-                    $mstmt = mysqli_prepare($conn, $mq);
-                    mysqli_stmt_bind_param($mstmt, "isi", $student_id, $subject, $marks);
-                    mysqli_stmt_execute($mstmt);
-                    mysqli_stmt_close($mstmt);
+                        if ($subject !== '' && $marks >= 0 && $marks <= 100) {
+                            $mq = "INSERT INTO marks (student_id, subject, g3) VALUES (?, ?, ?)";
+                            $mstmt = mysqli_prepare($conn, $mq);
+                            mysqli_stmt_bind_param($mstmt, "isi", $student_id, $subject, $marks);
+                            mysqli_stmt_execute($mstmt);
+                            mysqli_stmt_close($mstmt);
+                        }
+                    }
+
+                    if ($extra === 'yes') {
+                        $bonus_q = "INSERT INTO marks (student_id, subject, g3) VALUES (?, 'Activity Bonus', 5)";
+                        $bstmt = mysqli_prepare($conn, $bonus_q);
+                        mysqli_stmt_bind_param($bstmt, "i", $student_id);
+                        mysqli_stmt_execute($bstmt);
+                        mysqli_stmt_close($bstmt);
+                    }
+
+                    $success = "Student '$name' added successfully.";
+                } else {
+                    $error = "Error inserting student: " . mysqli_error($conn);
                 }
-            }
 
-            if ($extra === 'yes') {
-                $bonus_q = "INSERT INTO marks (student_id, subject, g3) VALUES (?, 'Activity Bonus', 5)";
-                $bstmt = mysqli_prepare($conn, $bonus_q);
-                mysqli_stmt_bind_param($bstmt, "i", $student_id);
-                mysqli_stmt_execute($bstmt);
-                mysqli_stmt_close($bstmt);
-            }
-
-            $success = "Student '$name' added successfully.";
-        } else {
-            $error = "Error inserting student: " . mysqli_error($conn);
-        }
-
+         }
         mysqli_stmt_close($stmt);
     }
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
