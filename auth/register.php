@@ -19,7 +19,7 @@ unset($_SESSION['success'], $_SESSION['error']);
 
 </head>
 
-<body>
+<body class="register-body">
 
 <div class="auth-box">
     <h2>User Registration</h2>
