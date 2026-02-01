@@ -258,26 +258,17 @@ while ($row = mysqli_fetch_assoc($marksRes)) {
 <div class="page-shape s3"></div>
 <div class="page-shape s4"></div>
 
-<!-- <div class="dashboard-main"> -->
-<!-- <div id="menu-btn" class="menu-btn openbtn" onclick="openNav()">☰</div> -->
 <div class="dashboard-main">
 
-    <!-- <div class="sidebar" id="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="add_student.php" class="links">➕ Add Student</a>
-        <a href="view_students.php" class="links">👥 Students Data</a>
-        <a href="dashboard.php" class="active " >📊 Performance Dashboard</a>
-        <a href="dashboard/index.php" class="links">📋 Performance Table</a>
-        <form method="post" action="logout.php">
-            <button class="logout-side">Logout</button>
-        </form>
-    </div> -->
 
     <div class="main" id="main" >
-        <!-- <button class="openbtn" onclick="openNav()">&#9776; Menu</button> -->
-        <h1 class="welcome-text">Welcome, <?php echo htmlspecialchars($firstName); ?> 🎉</h1>
+        
+          <form class="top-bar" action="logout.php">            
+                <h1 class="welcome-text">Welcome, <?php echo htmlspecialchars($firstName); ?> 🎉</h1>
+                <button class="std-logout">Logout</button>
+          </form>
         <h2 class="dashboard-title">Student Performance Dashboard</h2>
-
+          
         <div class="layout-grid">
 
             <!-- LEFT: KPIs + CHARTS -->
