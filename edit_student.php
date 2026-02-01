@@ -12,7 +12,7 @@ $subjects_list = [
     'Mathematics','English','Computer Networks','Python','Java',
     'C++','DSA','DBMS'
 ];
-$semister_List = [
+$semester_list = [
    'I','II','III','IV','V','VI','VII','VIII'
 ];
 
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Name, Course and Section are required.";
     } elseif ($attendance_percentage < 0 || $attendance_percentage > 100) {
         $error = "Attendance must be between 0 and 100.";
-    }  elseif ($sem !== '' && !in_array($sem, $semister_List, true)) {
+    }  elseif ($sem !== '' && !in_array($sem, $semester_list, true)) {
     $error = "Please select a valid semester.";
     }else {
         // Update students table
@@ -88,6 +88,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             $success = "Student updated successfully.";
+             header("Location: view_students.php");
+            exit();
         }
     }
 }
@@ -381,12 +383,11 @@ if (count($marks_data) === 0) {
                         <label>Semester</label>
                         <select name="semester" required>
                             <option value="">Select Semester</option>
-                            <?php
-                                for ($i=1;$i<=8;$i++){
-                                    $sel = ($student['semester'] == (string)$i) ? 'selected' : '';
-                                    echo '<option value="'.$i.'" '.$sel.'>'.$i.'</option>';
-                                }
-                            ?>
+                                    <?php foreach ($semester_list as $sem): ?>
+                                        <option value="<?php echo $sem; ?>" <?php echo ($student['semester']==$sem?'selected':''); ?>>
+                                            <?php echo $sem; ?>
+                                        </option>
+                                    <?php endforeach; ?>
                         </select>
                     </div>
                     <div>
