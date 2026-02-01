@@ -1,11 +1,12 @@
-
 <?php
 session_start();
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
     header("Location: page1/index.php");
     exit();
 }
+
 $firstName = explode(" ", $_SESSION['username'])[0];
+
 
 include("db/config.php");
 
@@ -20,7 +21,7 @@ $q = "
 SELECT
     s.student_id,
     s.name,
-    s.year,
+    s.`year`,
     s.semester,
     s.attendance_percentage,
     s.extracurricular,
@@ -34,7 +35,7 @@ LEFT JOIN marks m ON s.student_id = m.student_id
 GROUP BY
     s.student_id,
     s.name,
-    s.year,
+    s.`year`,
     s.semester,
     s.attendance_percentage,
     s.extracurricular
@@ -241,8 +242,11 @@ while ($row = mysqli_fetch_assoc($marksRes)) {
     $hasActivity = ($studentMarks[$sid]['extracurricular'] === 'yes');
     $studentMarks[$sid]['marks'][5] = $hasActivity ? 5 : 0;
 }
-?>
 
+
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -393,6 +397,15 @@ while ($row = mysqli_fetch_assoc($marksRes)) {
 
 <script>
 
+    // Data from PHP
+const yearLabels   = <?php echo json_encode($year_labels); ?>;
+const yearValues   = <?php echo json_encode($year_values); ?>;
+const statusLabels = <?php echo json_encode($status_labels); ?>;
+const statusValues = <?php echo json_encode($status_values); ?>;
+const gradeLabels  = <?php echo json_encode($grade_labels); ?>;
+const gradeValues  = <?php echo json_encode($grade_values); ?>;
+
+
 // Year bar chart
 const yearCtx = document.getElementById('yearChart').getContext('2d');
 new Chart(yearCtx, {
@@ -452,8 +465,12 @@ new Chart(gradeCtx, {
         scales:{ y:{ beginAtZero:true, ticks:{ precision:0 } } }
     }
 });
+// Individual performance bar chart
+const allStudentMarks = <?php echo json_encode($studentMarks); ?>;
+const ctxInd = document.getElementById('individualChart').getContext('2d');
+const studentSelect = document.getElementById('studentSelect');
 
-
+ 
 function getDataForStudent(studentId) {
     const data = allStudentMarks[studentId];
     if (!data) return { labels: [], marks: [] };
