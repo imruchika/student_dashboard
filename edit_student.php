@@ -9,7 +9,7 @@ include("db/config.php");
 
 // Subjects list for dropdowns
 $subjects_list = [
-    'Mathematics','English','Computer Networks','Python','Java',
+    'Python','Java',
     'C++','DSA','DBMS'
 ];
 $semester_list = [
