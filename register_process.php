@@ -4,7 +4,7 @@ include("db/config.php");
 
 // Allow only POST request
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header("Location: page1/register.php");
+    header("Location: auth/register.php");
     exit();
 }
 
@@ -19,14 +19,14 @@ $role      = $_POST['role'] ?? 'teacher';
 // Empty fields check
 if ($username === '' || $password === '' || $cpassword === '') {
     $_SESSION['error'] = "All fields are required.";
-    header("Location: page1/register.php");
+    header("Location: auth/register.php");
     exit();
 }
 
 // Password match check
 if ($password !== $cpassword) {
     $_SESSION['error'] = "Passwords do not match.";
-    header("Location: page1/register.php");
+    header("Location: auth/register.php");
     exit();
 }
 
@@ -45,7 +45,7 @@ mysqli_stmt_store_result($check);
 
 if (mysqli_stmt_num_rows($check) > 0) {
     $_SESSION['error'] = "Username already exists.";
-    header("Location: page1/register.php");
+    header("Location: auth/register.php");
     exit();
 }
 mysqli_stmt_close($check);
@@ -62,13 +62,13 @@ mysqli_stmt_bind_param($stmt, "sss", $username, $hashedPassword, $role);
 
 if (mysqli_stmt_execute($stmt)) {
     $_SESSION['success'] = "Registration successful. Please login.";
-    header("Location: page1/index.php"); // login page
+    header("Location: auth/index.php"); // login page
     exit();
 }
 
 // ---------------- FALLBACK ERROR ----------------
 $_SESSION['error'] = "Registration failed. Please try again.";
-header("Location: page1/register.php");
+header("Location: auth/register.php");
 exit();
 
 

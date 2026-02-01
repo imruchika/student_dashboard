@@ -1,7 +1,7 @@
 <?php
 session_start();
  if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "student"){
-    header("Location: page1/index.php");
+    header("Location:auth/index.php");
     exit();
 }
 $firstName = explode(" ", $_SESSION['username'])[0];

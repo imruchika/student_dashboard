@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
-    header("Location: page1/index.php");
+    header("Location: auth/index.php");
     exit();
 }
 

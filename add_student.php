@@ -241,7 +241,7 @@ $added_by = $_SESSION['username'];
                     <small>If "Yes" is selected, 5 bonus marks are added as "Activity Bonus" in total marks.</small>
                 </div>
                    <div style="display:flex; gap:10px; margin-top:10px;">
-    <!-- <button type="button" class="btn btn-primary" onclick="history.back()">Back</button> -->
+    
     <button type="submit" class="btn btn-primary">Save Student</button>
            </div>
 
