@@ -22,7 +22,7 @@ if (mysqli_num_rows($result) === 1) {
     $row = mysqli_fetch_assoc($result);
 
     // ✅ plain-text password check
-    if ($password === $row['password']) {
+    if(password_verify($password, $row["password"])) {
 
         $_SESSION["user_id"] = $row["id"];
         $_SESSION["username"] = $row["username"];
@@ -305,7 +305,7 @@ $error = "Invalid username or password.";
             <div class="error-msg"><?php echo htmlspecialchars($error); ?></div>
         <?php endif; ?>
 
-        <form method="post" action="../login.php">
+        <form method="post" >
     <div class="form-group">
         <label for="username">Username</label>
         <input class="form-control" type="text" id="username" name="username" placeholder="Enter username" required>
