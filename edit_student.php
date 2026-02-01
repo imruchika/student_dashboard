@@ -131,8 +131,9 @@ if (count($marks_data) === 0) {
 <head>
 <meta charset="UTF-8">
 <title>Edit Student</title>
+<link rel=stylesheet href="style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
+<!-- <style>
     *{
         box-sizing:border-box;
         font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
@@ -327,7 +328,7 @@ if (count($marks_data) === 0) {
         body{padding:16px;}
         .card-header{flex-direction:column;align-items:flex-start;gap:4px;}
     }
-</style>
+</style> -->
 </head>
 <body>
     <button type="button" class="back-btn" onclick="history.back()">Back</button>

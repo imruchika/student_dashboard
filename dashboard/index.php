@@ -105,8 +105,8 @@ $has_activity = ($extra_value === 'yes');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Performance</title>
-    <!-- <link rel="stylesheet" href="../style.css"> -->
-    <style>
+    <link rel="stylesheet" href="../style.css">
+    <!-- <style>
         * {
             box-sizing: border-box;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -179,7 +179,7 @@ $has_activity = ($extra_value === 'yes');
         thead {
             
             background-color: #413f3f;
-  color: #DDD0C8;
+            color: #DDD0C8;
         }
         th, td {
             padding: 10px 8px;
@@ -229,7 +229,7 @@ $has_activity = ($extra_value === 'yes');
         .btn-print {
             padding: 8px 16px;
            background-color: #413f3f;
-  color: #DDD0C8;
+           color: #DDD0C8;
             border-radius: 6px;
             border: none;
             font-size: 14px;
@@ -318,9 +318,9 @@ body{
     z-index:1;
 }
 
-    </style>
+    </style> -->
 </head>
-<body>
+<body class="edit-std-body">
     <a href="../dashboard.php" class="back-btn"> Back</a>
 <div class="page-shape s1"></div>
 <div class="page-shape s2"></div>
@@ -334,7 +334,7 @@ body{
     </header>
 
 
-    <div class="card">
+    <div class="p-card">
         <h3>Overall Performance (with Bonus)</h3>
         <div class="table-wrapper">
             <table>
