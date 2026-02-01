@@ -320,7 +320,7 @@ body{
 
     </style> -->
 </head>
-<body class="edit-std-body">
+<body class="stdperform-body">
     <a href="../dashboard.php" class="back-btn"> Back</a>
 <div class="page-shape s1"></div>
 <div class="page-shape s2"></div>

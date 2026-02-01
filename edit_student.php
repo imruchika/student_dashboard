@@ -330,7 +330,7 @@ if (count($marks_data) === 0) {
     }
 </style> -->
 </head>
-<body>
+<body class="edit-std-body">
     <button type="button" class="back-btn" onclick="history.back()">Back</button>
 <div class="wrapper">
     <div class="card">
