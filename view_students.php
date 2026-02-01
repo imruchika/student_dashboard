@@ -15,10 +15,10 @@ if (!isset($_SESSION['username'])) {
 }
 include("db/config.php");
 
-function intToRoman($num) {
-    $map = [1=>'I',2=>'II',3=>'III',4=>'IV',5=>'V',6=>'VI',7=>'VII',8=>'VIII'];
-    return $map[$num] ?? '-';
-}
+// function intToRoman($num) {
+//     $map = [1=>'I',2=>'II',3=>'III',4=>'IV',5=>'V',6=>'VI',7=>'VII',8=>'VIII'];
+//     return $map[$num] ?? '-';
+// }
 
 
 // Get all students with their marks data, including year & semester
@@ -497,7 +497,7 @@ body{
     <td><?php echo htmlspecialchars($row['section']); ?></td>
     <td><?php echo htmlspecialchars($row['year']); ?></td>
     
- <td><?= intToRoman($row['semester']) ?></td>
+ <td><?php echo $row['semester'] ?></td>
 
 
     <td><?php echo $row['cpp_marks'] ?? 0; ?></td>
