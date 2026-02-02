@@ -10,23 +10,6 @@ if (
 }
 include("db/config.php");
 
-//include("db/config.php");
-// $romanToInt = [
-//     'I' => 1,
-//     'II' => 2,
-//     'III' => 3,
-//     'IV' => 4,
-//     'V' => 5,
-//     'VI' => 6,
-//     'VII' => 7,
-//     'VIII' => 8
-// ];
-
-// $semRoman = trim($_POST['semester'] ?? '');
-// $sem = $romanToInt[$semRoman] ?? 0;
-
-
-
 
 $success = $error = "";
 
@@ -43,8 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $course = mysqli_real_escape_string($conn, trim($_POST['course'] ?? ''));
     $section= mysqli_real_escape_string($conn, trim($_POST['section'] ?? ''));
     $year   = mysqli_real_escape_string($conn, trim($_POST['year'] ?? ''));
-    // semester as plain number string "1".."8"
-    // $sem    = mysqli_real_escape_string($conn, trim($_POST['semester'] ?? ''));
     $sem = (int)($_POST['semester'] ?? 0);
     $extra  = $_POST['extracurricular'] ?? 'no';
     $extra_field = mysqli_real_escape_string($conn, trim($_POST['extra_field'] ?? ''));
@@ -207,14 +188,6 @@ $added_by = $_SESSION['username'];
                         <label>Semester</label>
                         <select name="semester" id="semester" required>
                             <option value="">Select Semester</option>
-                            <!-- <option value="1">I</option>
-                            <option value="2">II</option>
-                            <option value="3">III</option>
-                            <option value="4">IV</option>
-                            <option value="5">V</option>
-                            <option value="6">VI</option>
-                            <option value="7">VII</option>
-                            <option value="8">VIII</option> -->
                         </select>
                         <small id="semesterError" style="color:red; display:none;">
                             Please select a valid semester for the selected year.
@@ -290,10 +263,6 @@ const regex = this.value;
     if (value === "") {
         this.setCustomValidity("");
     }
-
-    // else if (!/^[A-Z]/.test(value)) {
-    //     this.setCustomValidity("Name must start with a capital letter");
-    // }
 
     else if (!/^[A-Z][a-z]+( [A-Z][a-z]+)*$/.test(value)) {
         this.setCustomValidity("Enter full name (First name and surname). Each word must start with a capital letter.");    

@@ -12,9 +12,6 @@ $subjects_list = [
     'Python','Java',
     'C++','DSA','DBMS'
 ];
-// $semester_list = [
-//    'I','II','III','IV','V','VI','VII','VIII'
-// ];
 
 $sem = (int)($_POST['semester'] ?? 0);
 
@@ -55,9 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($sem < 1 || $sem > 8) {
     $error = "Please select a valid semester.";
 }
-    // }  elseif ($sem !== '' && !in_array($sem, $semester_list, true)) {
-    // $error = "Please select a valid semester.";
-    // }
      else {
         // Update students table
         $uq = "UPDATE students 

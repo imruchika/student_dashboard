@@ -15,19 +15,12 @@ if (!isset($_SESSION['username'])) {
     exit;
 }
 include("db/config.php");
-
-// function intToRoman($num) {
-//     $map = [1=>'I',2=>'II',3=>'III',4=>'IV',5=>'V',6=>'VI',7=>'VII',8=>'VIII'];
-//     return $map[$num] ?? '-';
-// }
-
 $yearMap = [
     1 => 'First Year',
     2 => 'Second Year',
     3 => 'Third Year',
     4 => 'Fourth Year'
 ];
-
 
 $romanSemester = [
     1 => 'I', 2 => 'II', 3 => 'III', 4 => 'IV',
@@ -202,9 +195,7 @@ if (!$result) {
     
     <div class="print-section">
         <button class="btn-print" onclick="window.print()">🖨️ Print</button>
-        <!-- <a href="dashboard.php" class="back-link" style="margin-left:10px;">⬅ Back</a> -->
     </div>
-</div>
 
 <script>
 function searchTable() {

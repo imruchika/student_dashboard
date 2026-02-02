@@ -177,7 +177,6 @@ $has_activity = ($extra_value === 'yes');
         </div>
    <div class="bottom-actions">
     <button class="btn-print" onclick="window.print()">🖨️ Print</button>
-    <!-- <a href="../dashboard.php" class="btn-back">⬅ Back</a> -->
    </div>
 
         
