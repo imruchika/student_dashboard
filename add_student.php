@@ -37,6 +37,7 @@ $subjects_list = [
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $name   = mysqli_real_escape_string($conn, trim($_POST['name'] ?? ''));
+
     $course = mysqli_real_escape_string($conn, trim($_POST['course'] ?? ''));
     $section= mysqli_real_escape_string($conn, trim($_POST['section'] ?? ''));
     $year   = mysqli_real_escape_string($conn, trim($_POST['year'] ?? ''));
@@ -47,13 +48,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $attendance_input = trim($_POST['attendance'] ?? '');
     $attendance_percentage = ($attendance_input === '' ? 0 : (float)$attendance_input);
 $added_by = $_SESSION['username'];
-    if ($name === '' || $course === '' || $section === '') {
+    if ($name === '' || $course === '' || $section === '') 
+     {
         $error = "Name, Course and Section are required.";
-    } elseif ($attendance_percentage < 0 || $attendance_percentage > 100) {
+     }
+    elseif (!preg_match("/^[A-Z][a-z]+$/", $name))
+     {
+    $error = "Student name must start with a capital letter and contain only alphabets.";
+     }
+    elseif ($attendance_percentage < 0 || $attendance_percentage > 100)
+     {
         $error = "Attendance must be between 0 and 100.";
-    } elseif ($sem ===0){
+     }
+     elseif ($sem ===0)
+     {
         $error = "Please select a valid semester.";
-    } else {
+     }
+     else {
             $role = "student";
             $prn = $_POST['prn'];
 
@@ -116,9 +127,9 @@ $added_by = $_SESSION['username'];
                 } else {
                     $error = "Error inserting student: " . mysqli_error($conn);
                 }
-
+  mysqli_stmt_close($stmt);
          }
-        mysqli_stmt_close($stmt);
+      
     }
 
 ?>
@@ -159,15 +170,17 @@ $added_by = $_SESSION['username'];
                     </div>
                     <div>
                         <label>Name *</label>
-                        <input type="text" name="name" required>
+                        <input type="text" name="name" id="name" placeholder="Enter student name"
+                         pattern="^[A-Z][a-z]+$" title="Name must start with a capital letter
+                          and contain only alphabets" required>
                     </div>
                     <div>
                         <label>Course *</label>
-                        <input type="text" name="course" required>
+                        <input type="text" name="course" placeholder="Enter your course"required>
                     </div>
                     <div>
                         <label>Section *</label>
-                        <input type="text" name="section" required>
+                        <input type="text" name="section"placeholder="Enter your section" required>
                     </div>
                     <div>
                         <label>Attendance (%)</label>
@@ -260,6 +273,33 @@ $added_by = $_SESSION['username'];
     </div>
 </div>
 
+<!-- USED FOR STUDENT NAME FOR NOT CONTAIN NUMERIC VALUE -->
+
+<script>
+document.getElementById("name").addEventListener("input", function () {
+const regex = this.value;
+
+    if (value === "") {
+        this.setCustomValidity("");
+    }
+    else if (!/^[A-Z]/.test(value)) {
+        this.setCustomValidity("Name must start with a capital letter");
+    }
+    else if (!/^[A-Z][a-z]*$/.test(value)) {
+        this.setCustomValidity("Only lowercase letters are allowed after the first capital letter");
+    }
+    else {
+        this.setCustomValidity("");
+    }
+});
+
+
+    
+</script>
+
+
+
+<!-- USED FOR AUTOGENERATE PRN   -->
 <script>
 window.onload = function () {
     fetch("generate_prn.php")
