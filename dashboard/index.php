@@ -117,7 +117,7 @@ $has_activity = ($extra_value === 'yes');
 
 <div class="wrapper">
     <header class="top">
-        <h2>📊 Student Performance</h2>
+        <h2>     📊 Student Performance</h2>
         
     </header>
 

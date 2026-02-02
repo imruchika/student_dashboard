@@ -741,8 +741,6 @@
         padding:12px;
         border:none;
         border-radius:999px;
-        /* background:linear-gradient(135deg,#6366f1,#8b5cf6);
-        color:#fff; */
         background-color: #413f3f;
         color: #DDD0C8;
         font-weight:700;
@@ -822,7 +820,7 @@
             min-height: 100vh;
         }
         .wrapper {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
         .top {
@@ -837,6 +835,7 @@
         .top h2 {
         color: #413f3f;
           margin: 0;
+          margin-left: 50px;
             font-size: clamp(20px, 4vw, 26px);
         }
         .back-btn {
