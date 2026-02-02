@@ -1,5 +1,6 @@
 <?php
 session_start();
+// session_unset();
 include("../db/config.php");
 
 
@@ -76,7 +77,7 @@ $error = "Invalid username or password.";
             <div class="error-msg"><?php echo htmlspecialchars($error); ?></div>
         <?php endif; ?>
 
-        <form method="post" >
+        <form method="post" autocomplete="off">          
     <div class="form-group">
         <label for="username">Username</label>
         <input class="form-control" type="text" id="username" name="username" placeholder="Enter username" required>
