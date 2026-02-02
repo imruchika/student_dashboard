@@ -11,19 +11,21 @@ if (
 include("db/config.php");
 
 //include("db/config.php");
-$romanToInt = [
-    'I' => 1,
-    'II' => 2,
-    'III' => 3,
-    'IV' => 4,
-    'V' => 5,
-    'VI' => 6,
-    'VII' => 7,
-    'VIII' => 8
-];
+// $romanToInt = [
+//     'I' => 1,
+//     'II' => 2,
+//     'III' => 3,
+//     'IV' => 4,
+//     'V' => 5,
+//     'VI' => 6,
+//     'VII' => 7,
+//     'VIII' => 8
+// ];
 
-$semRoman = trim($_POST['semester'] ?? '');
-$sem = $romanToInt[$semRoman] ?? 0;
+// $semRoman = trim($_POST['semester'] ?? '');
+// $sem = $romanToInt[$semRoman] ?? 0;
+
+
 
 
 $success = $error = "";
@@ -42,7 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $section= mysqli_real_escape_string($conn, trim($_POST['section'] ?? ''));
     $year   = mysqli_real_escape_string($conn, trim($_POST['year'] ?? ''));
     // semester as plain number string "1".."8"
-    $sem    = mysqli_real_escape_string($conn, trim($_POST['semester'] ?? ''));
+    // $sem    = mysqli_real_escape_string($conn, trim($_POST['semester'] ?? ''));
+    $sem = (int)($_POST['semester'] ?? 0);
     $extra  = $_POST['extracurricular'] ?? 'no';
     $extra_field = mysqli_real_escape_string($conn, trim($_POST['extra_field'] ?? ''));
     $attendance_input = trim($_POST['attendance'] ?? '');
@@ -52,7 +55,7 @@ $added_by = $_SESSION['username'];
      {
         $error = "Name, Course and Section are required.";
      }
-    elseif (!preg_match("/^[A-Z][a-z]+$/", $name))
+    elseif (!preg_match("/^[A-Z][a-z]+( [A-Z][a-z]+)+$/", $name))
      {
     $error = "Student name must start with a capital letter and contain only alphabets.";
      }
@@ -60,7 +63,7 @@ $added_by = $_SESSION['username'];
      {
         $error = "Attendance must be between 0 and 100.";
      }
-     elseif ($sem ===0)
+     elseif ($sem < 1 || $sem > 8)
      {
         $error = "Please select a valid semester.";
      }
@@ -86,7 +89,8 @@ $added_by = $_SESSION['username'];
                 $stmt = mysqli_prepare($conn, $q);
                 mysqli_stmt_bind_param(
                     $stmt,
-                    "sdsssssdss",
+                    // "sdsssssdss",
+                    "sdssssidss",
                     $prn,
                     $user_id,
                     $name,
@@ -170,9 +174,9 @@ $added_by = $_SESSION['username'];
                     </div>
                     <div>
                         <label>Name *</label>
-                        <input type="text" name="name" id="name" placeholder="Enter student name"
-                         pattern="^[A-Z][a-z]+$" title="Name must start with a capital letter
-                          and contain only alphabets" required>
+                        <input type="text" name="name" id="name" placeholder="Enter full name"
+                         pattern="^[A-Z][a-z]+( [A-Z][a-z]+)+$" title="Enter full name (First name
+                          and surname). Each word must start with a capital letter." required>
                     </div>
                     <div>
                         <label>Course *</label>
@@ -191,27 +195,31 @@ $added_by = $_SESSION['username'];
                 <div class="row">
                     <div>
                         <label>Year</label>
-                        <select name="year" required>
+                        <select name="year" id="year" required>
                             <option value="">Select Year</option>
-                            <option value="first">First Year</option>
-                            <option value="second">Second Year</option>
-                            <option value="third">Third Year</option>
-                            <option value="four">Fourth Year</option>
+                            <option value="1">First Year</option>
+                            <option value="2">Second Year</option>
+                            <option value="3">Third Year</option>
+                            <option value="4">Fourth Year</option>
                         </select>
                     </div>
                     <div>
                         <label>Semester</label>
-                        <select name="semester" required>
+                        <select name="semester" id="semester" required>
                             <option value="">Select Semester</option>
-                            <option value="I">I</option>
-                            <option value="II">II</option>
-                            <option value="III">III</option>
-                            <option value="IV">IV</option>
-                            <option value="V">V</option>
-                            <option value="VI">VI</option>
-                            <option value="VII">VII</option>
-                            <option value="VIII">VIII</option>
+                            <!-- <option value="1">I</option>
+                            <option value="2">II</option>
+                            <option value="3">III</option>
+                            <option value="4">IV</option>
+                            <option value="5">V</option>
+                            <option value="6">VI</option>
+                            <option value="7">VII</option>
+                            <option value="8">VIII</option> -->
                         </select>
+                        <small id="semesterError" style="color:red; display:none;">
+                            Please select a valid semester for the selected year.
+                        </small>
+
                     </div>
                 </div>
 
@@ -282,19 +290,25 @@ const regex = this.value;
     if (value === "") {
         this.setCustomValidity("");
     }
-    else if (!/^[A-Z]/.test(value)) {
-        this.setCustomValidity("Name must start with a capital letter");
+
+    // else if (!/^[A-Z]/.test(value)) {
+    //     this.setCustomValidity("Name must start with a capital letter");
+    // }
+
+    else if (!/^[A-Z][a-z]+( [A-Z][a-z]+)*$/.test(value)) {
+        this.setCustomValidity("Enter full name (First name and surname). Each word must start with a capital letter.");    
+    } 
+    
+    else if (!/( [A-Z][a-z]+)$/.test(value)) {
+        this.setCustomValidity("Please enter surname also");
     }
-    else if (!/^[A-Z][a-z]*$/.test(value)) {
-        this.setCustomValidity("Only lowercase letters are allowed after the first capital letter");
-    }
+
     else {
         this.setCustomValidity("");
     }
 });
 
-
-    
+                                       
 </script>
 
 
@@ -310,7 +324,7 @@ window.onload = function () {
 };
 </script>
 
-
+<!-- USED FOR EXTRA CURRICULUM ACTIVITY -->
 <script>
     const radios = document.querySelectorAll('input[name="extracurricular"]');
     const extraWrap = document.getElementById('extraFieldWrapper');
@@ -325,5 +339,50 @@ window.onload = function () {
         });
     });
 </script>
+
+<script>
+const yearSelect = document.getElementById("year");
+const semesterSelect = document.getElementById("semester");
+
+// Roman mapping
+const roman = {
+    1: "I",
+    2: "II",
+    3: "III",
+    4: "IV",
+    5: "V",
+    6: "VI",
+    7: "VII",
+    8: "VIII"
+};
+
+// Year → valid semesters
+const yearSemesterMap = {
+    1: [1, 2],       // First Year
+    2: [3, 4],       // Second Year
+    3: [5, 6],       // Third Year
+    4: [7, 8]        // Final Year
+};
+
+yearSelect.addEventListener("change", function () {
+    const year = Number(this.value);
+
+    // Reset semester dropdown
+    semesterSelect.innerHTML = '<option value="">Select Semester</option>';
+
+    if (!year) return;
+
+    // Add only valid semesters
+    yearSemesterMap[year].forEach(sem => {
+        const option = document.createElement("option");
+        option.value = sem;           // numeric (DB)
+        option.textContent = roman[sem]; // Roman (UI)
+        semesterSelect.appendChild(option);
+    });
+});
+</script>
+
+
+
 </body>
 </html>

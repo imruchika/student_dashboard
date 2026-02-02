@@ -21,6 +21,19 @@ include("db/config.php");
 //     return $map[$num] ?? '-';
 // }
 
+$yearMap = [
+    1 => 'First Year',
+    2 => 'Second Year',
+    3 => 'Third Year',
+    4 => 'Fourth Year'
+];
+
+
+$romanSemester = [
+    1 => 'I', 2 => 'II', 3 => 'III', 4 => 'IV',
+    5 => 'V', 6 => 'VI', 7 => 'VII', 8 => 'VIII'
+];
+
 
 // Get all students with their marks data, including year & semester
 $query = "
@@ -138,9 +151,12 @@ if (!$result) {
     <td><strong><?php echo htmlspecialchars($row['name']); ?></strong></td>
     <td><?php echo htmlspecialchars($row['class']); ?></td>
     <td><?php echo htmlspecialchars($row['section']); ?></td>
-    <td><?php echo htmlspecialchars($row['year']); ?></td>
-    
- <td><?php echo $row['semester'] ?></td>
+    <!-- <td><?php echo htmlspecialchars($row['year']); ?></td> -->
+    <td><?= $yearMap[$row['year']] ?? '—'; ?></td>
+
+ <!-- <td><?php echo $row['semester'] ?></td> -->
+  <td><?= $romanSemester[$row['semester']] ?? '—'; ?></td>
+
 
 
     <td><?php echo $row['cpp_marks'] ?? 0; ?></td>

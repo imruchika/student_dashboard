@@ -12,9 +12,23 @@ $subjects_list = [
     'Python','Java',
     'C++','DSA','DBMS'
 ];
-$semester_list = [
-   'I','II','III','IV','V','VI','VII','VIII'
+// $semester_list = [
+//    'I','II','III','IV','V','VI','VII','VIII'
+// ];
+
+$sem = (int)($_POST['semester'] ?? 0);
+
+$romanMap = [
+    1 => 'I',
+    2 => 'II',
+    3 => 'III',
+    4 => 'IV',
+    5 => 'V',
+    6 => 'VI',
+    7 => 'VII',
+    8 => 'VIII'
 ];
+
 
 $success = $error = "";
 
@@ -38,9 +52,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Name, Course and Section are required.";
     } elseif ($attendance_percentage < 0 || $attendance_percentage > 100) {
         $error = "Attendance must be between 0 and 100.";
-    }  elseif ($sem !== '' && !in_array($sem, $semester_list, true)) {
+    } elseif ($sem < 1 || $sem > 8) {
     $error = "Please select a valid semester.";
-    }else {
+}
+    // }  elseif ($sem !== '' && !in_array($sem, $semester_list, true)) {
+    // $error = "Please select a valid semester.";
+    // }
+     else {
         // Update students table
         $uq = "UPDATE students 
                SET name = ?, class = ?, section = ?, year = ?, semester = ?, attendance_percentage = ? 
@@ -49,7 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // name (s), class (s), section (s), year (s), semester (s), attendance (d), id (i)
         mysqli_stmt_bind_param(
             $ustmt,
-            "sssssdi",
+            // "sssssdi",
+            "ssssidi",
             $name,
             $course,
             $section,
@@ -125,6 +144,24 @@ if (count($marks_data) === 0) {
         $marks_data[] = ['id' => 0, 'subject' => '', 'g3' => ''];
     }
 }
+
+$semester_list = [];
+
+switch ((int)$student['year']) {
+    case 1: // First Year
+        $semester_list = [1, 2];
+        break;
+    case 2: // Second Year
+        $semester_list = [3, 4];
+        break;
+    case 3: // Third Year
+        $semester_list = [5, 6];
+        break;
+    case 4: // Final Year
+        $semester_list = [7, 8];
+        break;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -177,23 +214,19 @@ if (count($marks_data) === 0) {
                 <div class="row">
                     <div>
                         <label>Year</label>
-                        <select name="year" required>
+                        <select name="year" id="year" required>
                             <option value="">Select Year</option>
-                            <option value="First" <?php echo $student['year']=='First'?'selected':''; ?>>First Year</option>
-                            <option value="Second" <?php echo $student['year']=='Second'?'selected':''; ?>>Second Year</option>
-                            <option value="Third" <?php echo $student['year']=='Third'?'selected':''; ?>>Third Year</option>
-                            <option value="Four" <?php echo $student['year']=='Four'?'selected':''; ?>>Four Year</option>
+                            <option value="1" <?= ((int)$student['year'] === 1) ? 'selected' : ''; ?>>First Year</option>
+                            <option value="2" <?= ((int)$student['year'] === 2) ? 'selected' : ''; ?>>Second Year</option>
+                            <option value="3" <?= ((int)$student['year'] === 3) ? 'selected' : ''; ?>>Third Year</option>
+                            <option value="4" <?= ((int)$student['year'] === 4) ? 'selected' : ''; ?>>Fourth Year</option>
+
                         </select>
                     </div>
                     <div>
                         <label>Semester</label>
-                        <select name="semester" required>
+                       <select name="semester" id="semester" required>
                             <option value="">Select Semester</option>
-                                    <?php foreach ($semester_list as $sem): ?>
-                                        <option value="<?php echo $sem; ?>" <?php echo ($student['semester']==$sem?'selected':''); ?>>
-                                            <?php echo $sem; ?>
-                                        </option>
-                                    <?php endforeach; ?>
                         </select>
                     </div>
                     <div>
@@ -239,5 +272,56 @@ if (count($marks_data) === 0) {
         </div>
     </div>
 </div>
+<script>
+const savedYear = <?= (int)$student['year']; ?>;
+const savedSemester = <?= (int)$student['semester']; ?>;
+</script>
+
+<script>
+const yearSelect = document.getElementById("year");
+const semesterSelect = document.getElementById("semester");
+
+const roman = {
+    1: "I", 2: "II", 3: "III", 4: "IV",
+    5: "V", 6: "VI", 7: "VII", 8: "VIII"
+};
+
+const yearSemesterMap = {
+    1: [1, 2],   // First Year
+    2: [3, 4],   // Second Year
+    3: [5, 6],   // Third Year
+    4: [7, 8]    // Final Year
+};
+
+function populateSemesters(year, selectedSemester = null) {
+    semesterSelect.innerHTML = '<option value="">Select Semester</option>';
+
+    if (!year) return;
+
+    yearSemesterMap[year].forEach(sem => {
+        const option = document.createElement("option");
+        option.value = sem;              // numeric
+        option.textContent = roman[sem]; // Roman UI
+
+        if (sem === selectedSemester) {
+            option.selected = true;
+        }
+
+        semesterSelect.appendChild(option);
+    });
+}
+
+// When year changes
+yearSelect.addEventListener("change", function () {
+    populateSemesters(Number(this.value));
+});
+
+// 🔥 ON PAGE LOAD (EDIT MODE)
+if (savedYear) {
+    yearSelect.value = savedYear;
+    populateSemesters(savedYear, savedSemester);
+}
+</script>
+
 </body>
 </html>
