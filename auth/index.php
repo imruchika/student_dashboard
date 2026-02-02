@@ -63,7 +63,7 @@ $error = "Invalid username or password.";
 <div class="login-wrapper">
     <div class="login-illustration">
         <div class="tag">Student Performance</div>
-        <h1>Welcome back to your dashboard</h1>
+        <h1>Welcome to your dashboard</h1>
         <p>Login to manage students, analyze performance and explore insights for every class.</p>
         
     </div>

@@ -55,7 +55,9 @@ $added_by = $_SESSION['username'];
         $error = "Please select a valid semester.";
     } else {
             $role = "student";
-            $prn = date('YmdHis');  
+            $prn = $_POST['prn'];
+
+            // $prn = date('YmdHis');  
             $hashedPassword = password_hash("stud123", PASSWORD_DEFAULT);//creting default password for student
             $stmt = mysqli_prepare(
             $conn,
@@ -150,6 +152,11 @@ $added_by = $_SESSION['username'];
 
             <form method="post" action="add_student.php">
                 <div class="row">
+                    <div>
+                        <label>PRN *</label>
+                        <input type="text" id="prn" name="prn" readonly class="form-control" required>
+
+                    </div>
                     <div>
                         <label>Name *</label>
                         <input type="text" name="name" required>
@@ -252,6 +259,17 @@ $added_by = $_SESSION['username'];
         </div>
     </div>
 </div>
+
+<script>
+window.onload = function () {
+    fetch("generate_prn.php")
+        .then(res => res.text())
+        .then(prn => {
+            document.getElementById("prn").value = prn;
+        });
+};
+</script>
+
 
 <script>
     const radios = document.querySelectorAll('input[name="extracurricular"]');
